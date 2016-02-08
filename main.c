@@ -6,7 +6,7 @@
 /*   By: fsidler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/03 23:17:40 by fsidler           #+#    #+#             */
-/*   Updated: 2016/02/08 18:21:10 by fsidler          ###   ########.fr       */
+/*   Updated: 2016/02/08 18:44:22 by fsidler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,15 @@ char	*ft_error(char *buf)
 	int		i;
 
 	i = 0;
+	if (buf[0] == '\0')
+	{
+		ft_putstr_fd("error: file is empty\n", 2);
+		return (NULL);
+	}
 	while (buf[i] != '\0')
 		i++;
 	buf[i - 1] = '\0';
+	//appel des fonctions pour longueur des lignes, digit, empty lines (meme fonction que digit)
 	return (buf);
 }
 
@@ -71,12 +77,15 @@ int		main(int argc, char **argv)
 		buf = ft_strjoin(ft_strjoin(buf, line), "\n");
 	if (get_next_line(fd, &line) != 0)
 	{
-		write(2, "error: get_next_line returned -1\n", 32);
+		ft_putstr_fd("error: get_next_line returned -1\n", 2);
 		free(buf);
 		return (0);
 	}
-	if (!ft_error(buf))
+	if (ft_error(buf) != NULL)
+	{
 		printf("%s\n", buf);//retirer
+		//appel des fonctions (atoi, char* to int**)
+	}
 	if (close(fd) == -1)
 		ft_indicate_error(argv[1]);
 	return (fd);
