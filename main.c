@@ -6,7 +6,7 @@
 /*   By: fsidler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/03 23:17:40 by fsidler           #+#    #+#             */
-/*   Updated: 2016/02/08 17:08:20 by fsidler          ###   ########.fr       */
+/*   Updated: 2016/02/08 17:20:28 by fsidler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ int		main(int argc, char **argv)
 {
 	int		fd;
 	char	*line;
+	char	*buf;
 	
+	buf = ft_strnew(1);
 	if (argc != 2)
 	{
 		write(2, "usage: ./FdF input_file\n", 24);
@@ -40,7 +42,9 @@ int		main(int argc, char **argv)
 		return (0);
 	}
 	while (get_next_line(fd, &line) > 0)
-		printf("%s\n", line);//utiliser strjoin avec aussi des /n
+		buf = ft_strjoin(ft_strjoin(buf, line), "\n");
+	ft_error(buf);
+	printf("%s\n", buf);
 	if (get_next_line(fd, &line) != 0)
 		write(2, "error: get_next_line returned -1\n", 32);
 	//appeller la fonction pour les erreurs

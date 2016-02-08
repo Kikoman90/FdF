@@ -5,69 +5,75 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsidler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/02/01 17:18:20 by fsidler           #+#    #+#             */
-/*   Updated: 2016/02/04 11:35:30 by fsidler          ###   ########.fr       */
+/*   Created: 2016/02/04 13:13:20 by fsidler           #+#    #+#             */
+/*   Updated: 2016/02/08 17:25:11 by fsidler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char		*ft_read(char *total, int const fd, int *ret)
+static int		ft_read(char **str, int fd)
 {
-	char			*buf;
-	char			*tmp;
+	int		ret;
+	char	*s;
+	char	buf[BUFF_SIZE + 1];
 
-	if (!(buf = (char *)malloc(sizeof(char) * BUFF_SIZE + 1)))
-		return (NULL);
-	if ((*ret = read(fd, buf, BUFF_SIZE)) != -1 && *ret > 0)
-	{
-		buf[*ret] = '\0';
-		tmp = ft_strjoin(total, buf);
-		free(total);
-		free(buf);
-		total = tmp;
-	}
-	if (*ret == -1)
-		return (NULL);
-	return (total);
+	if ((ret = read(fd, buf, BUFF_SIZE)) == -1)
+		return (-1);
+	buf[ret] = '\0';
+	s = *str;
+	*str = ft_strjoin(*str, buf);
+	if (*s != 0)
+		free(s);
+	return (ret);
 }
 
-static int		ft_check(char **total, int ret)
+static int		ft_get_line(char **str, char **line, char *s)
 {
-	if (ret == 0 && ft_strlen(*total) != 0)
+	int		i;
+	char	*join;
+
+	i = 0;
+	if (*s == '\n')
+		i = 1;
+	*s = 0;
+	*line = ft_strjoin("", *str);
+	if (i == 0 && ft_strlen(*str) != 0)
 	{
-		*total = ft_strnew(1);
+		*str = ft_strnew(1);
 		return (1);
 	}
-	else if (ret == 0 && !(ft_strlen(*total)))
+	else if (i == 0 && !(ft_strlen(*str)))
 		return (0);
-	return (-1);
+	join = *str;
+	*str = ft_strjoin(s + 1, "");
+	free(join);
+	return (i);
 }
 
 int				get_next_line(int const fd, char **line)
 {
-	int				ret;
-	char			*cut;
-	static char		*total = NULL;
+	int			ret;
+	char		*s;
+	static char	*str;
 
-	ret = 1;
-	if ((fd < 0 || !(line) || BUFF_SIZE < 1) ||
-		(!total && !(total = (char *)malloc(sizeof(char) * 1))))
+	if (str == 0)
+		str = "";
+	if (!line || BUFF_SIZE < 1)
 		return (-1);
-	while (ret > 0)
+	ret = BUFF_SIZE;
+	while (line)
 	{
-		if (!(total = ft_read(total, fd, &ret)))
-			return (-1);
-		if ((cut = ft_strchr(total, '\n')) != NULL)
+		s = str;
+		while (*s || ret < BUFF_SIZE)
 		{
-			*cut = '\0';
-			if (!(*line = ft_strdup(total)))
-				return (-1);
-			ft_memmove(total, cut + 1, ft_strlen(cut + 1) + 1);
-			return (1);
+			if (*s == '\n' || *s == 0 || *s == -1)
+				return (ft_get_line(&str, line, s));
+			s++;
 		}
+		ret = ft_read(&str, fd);
+		if (ret == -1)
+			return (-1);
 	}
-	if (!(*line = ft_strdup(total)))
-		return (-1);
-	return (ft_check(&total, ret));
+	return (0);
 }

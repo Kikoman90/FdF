@@ -6,19 +6,17 @@
 /*   By: fsidler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/01 13:21:24 by fsidler           #+#    #+#             */
-/*   Updated: 2016/02/04 11:35:12 by fsidler          ###   ########.fr       */
+/*   Updated: 2016/02/08 17:24:06 by fsidler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include "mlx.h"
-# include <fcntl.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include <fcntl.h>
 
 # define UC unsigned char
 # define BUFF_SIZE 1
@@ -29,6 +27,8 @@ typedef struct		s_list
 	size_t			content_size;
 	struct s_list	*next;
 }					t_list;
+
+int					get_next_line(int const fd, char **line);
 
 int					ft_isascii(int c);
 int					ft_isprint(int c);
@@ -41,8 +41,6 @@ int					ft_tolower(int c);
 int					ft_toupper(int c);
 
 int					ft_atoi(char *str);
-
-int					get_next_line(int const fd, char **line);
 
 void				ft_bzero(void *s, size_t n);
 
