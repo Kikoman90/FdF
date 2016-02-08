@@ -6,33 +6,29 @@
 /*   By: fsidler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/03 23:17:40 by fsidler           #+#    #+#             */
-/*   Updated: 2016/02/08 16:59:31 by fsidler          ###   ########.fr       */
+/*   Updated: 2016/02/08 17:08:20 by fsidler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/includes/libft.h"
-#include <errno.h>
 #include <stdio.h>//retirer
 #include "mlx.h"
 
-/*static int	ft_nbline(int fd)
-{
-	char	*buf;
-	int		ret;
-	int		nb;
-
-	nb = 0;
-}*/
-
-int		main(int argc, char **argv)
+void	ft_window(void)
 {
 	void	*mlx;
 	void	*win;
+
+	mlx = mlx_init();
+	win = mlx_new_window(mlx, 400, 400, "FdF");
+	mlx_loop(mlx);
+}
+
+int		main(int argc, char **argv)
+{
 	int		fd;
 	char	*line;
 	
-	mlx = mlx_init();
-	win = mlx_new_window(mlx, 400, 400, "FdF");
 	if (argc != 2)
 	{
 		write(2, "usage: ./FdF input_file\n", 24);
@@ -40,14 +36,14 @@ int		main(int argc, char **argv)
 	}
 	if ((fd = open(argv[1], O_RDONLY)) == -1)
 	{
-		write(2, "error: No such file or directory\n", 33);//utiliser putstr(strerror(errno));
+		write(2, "error: No such file or directory\n", 33);
 		return (0);
 	}
 	while (get_next_line(fd, &line) > 0)
-		printf("%s\n", line);
+		printf("%s\n", line);//utiliser strjoin avec aussi des /n
 	if (get_next_line(fd, &line) != 0)
 		write(2, "error: get_next_line returned -1\n", 32);
-	mlx_loop(mlx);
+	//appeller la fonction pour les erreurs
 	if (close(fd) == -1)
 		write(2, "close error\n", 12);
 	return (fd);
