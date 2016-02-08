@@ -6,7 +6,7 @@
 /*   By: fsidler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/03 23:17:40 by fsidler           #+#    #+#             */
-/*   Updated: 2016/02/08 18:07:55 by fsidler          ###   ########.fr       */
+/*   Updated: 2016/02/08 18:21:10 by fsidler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,20 @@
 #include <errno.h>
 #include <stdio.h>//retirer
 #include "mlx.h"
+
+void	ft_indicate_error(char *file)
+{
+	char	*message;
+
+	message = ft_strnew(1);
+	message = ft_strjoin(message, "error: ");
+	message = ft_strjoin(message, strerror(errno));
+	message = ft_strjoin(message, " for ");
+	message = ft_strjoin(message, file);
+	message = ft_strjoin(message, "\n");
+	ft_putstr_fd(message, 2);
+}
+
 
 void	ft_window(void)
 {
@@ -50,7 +64,7 @@ int		main(int argc, char **argv)
 	}
 	if ((fd = open(argv[1], O_RDONLY)) == -1)
 	{
-		ft_putstr_fd(ft_strjoin("error: ", ft_strjoin(strerror(errno), "\n")), 2);
+		ft_indicate_error(argv[1]);
 		return (0);
 	}
 	while (get_next_line(fd, &line) > 0)
@@ -64,6 +78,6 @@ int		main(int argc, char **argv)
 	if (!ft_error(buf))
 		printf("%s\n", buf);//retirer
 	if (close(fd) == -1)
-		ft_putstr_fd(ft_strjoin("error: ", ft_strjoin(strerror(errno), "\n")), 2);
+		ft_indicate_error(argv[1]);
 	return (fd);
 }
