@@ -6,7 +6,7 @@
 /*   By: fsidler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/03 23:17:40 by fsidler           #+#    #+#             */
-/*   Updated: 2016/02/08 17:20:28 by fsidler          ###   ########.fr       */
+/*   Updated: 2016/02/08 17:28:59 by fsidler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,17 @@ void	ft_window(void)
 	mlx = mlx_init();
 	win = mlx_new_window(mlx, 400, 400, "FdF");
 	mlx_loop(mlx);
+}
+
+char	*ft_error(char *buf)
+{
+	int		i;
+
+	i = 0;
+	while (buf[i] != '\0')
+		i++;
+	buf[i - 1] = '\0';
+	return (buf);
 }
 
 int		main(int argc, char **argv)
