@@ -6,7 +6,7 @@
 /*   By: fsidler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/01 13:21:24 by fsidler           #+#    #+#             */
-/*   Updated: 2016/02/08 17:24:06 by fsidler          ###   ########.fr       */
+/*   Updated: 2016/02/09 18:19:14 by fsidler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <fcntl.h>
 
 # define UC unsigned char
-# define BUFF_SIZE 1
+# define BUFF_SIZE 100
 
 typedef struct		s_list
 {
