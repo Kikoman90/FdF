@@ -6,14 +6,15 @@
 /*   By: fsidler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/03 23:17:40 by fsidler           #+#    #+#             */
-/*   Updated: 2016/02/08 18:44:22 by fsidler          ###   ########.fr       */
+/*   Updated: 2016/02/09 13:56:17 by fsidler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/includes/libft.h"
+#include "libft/libft.h"
+#include "fdf.h"
 #include <errno.h>
 #include <stdio.h>//retirer
-#include "mlx.h"
+#include <mlx.h>
 
 void	ft_indicate_error(char *file)
 {
@@ -66,6 +67,11 @@ int		main(int argc, char **argv)
 	if (argc != 2)
 	{
 		write(2, "usage: ./FdF input_file\n", 24);
+		return (0);
+	}
+	if (BUFF_SIZE < 1)
+	{
+		write(2, "error: BUFF_SIZE must be greater than 0\n", 40);
 		return (0);
 	}
 	if ((fd = open(argv[1], O_RDONLY)) == -1)

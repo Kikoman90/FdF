@@ -6,13 +6,13 @@
 #    By: fsidler <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/02 11:09:55 by fsidler           #+#    #+#              #
-#    Updated: 2016/02/08 17:24:20 by fsidler          ###   ########.fr        #
+#    Updated: 2016/02/09 13:55:56 by fsidler          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
-HEADERS = includes
+HEADERS = libft.h
 
 SRC = ft_isascii.c \
 	  ft_isprint.c \
