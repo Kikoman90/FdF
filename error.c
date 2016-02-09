@@ -6,44 +6,43 @@
 /*   By: fsidler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 14:04:49 by fsidler           #+#    #+#             */
-/*   Updated: 2016/02/09 16:12:20 by fsidler          ###   ########.fr       */
+/*   Updated: 2016/02/09 17:45:34 by fsidler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include <stdio.h>//retirer
 
-/*int		ft_length_error(char *buf)
+static int	ft_length_error(char *buf)
 {
 	int	i;
 	int	l;
 	int	length;
 
 	i = 0;
-	l = 0;
 	length = -1;
 	while (buf[i] != '\0')
 	{
-		while (buf[i] == ' ' && buf[i] != '\0')
-			i++;
 		l = 0;
 		while (buf[i] != '\n' && buf[i] != '\0')
+		{
+			while (buf[i] == ' ' && buf[i] != '\n' && buf[i] != '\0')
+				i++;
 			l++;
+			while (buf[i] != ' ' && buf[i] != '\n' && buf[i] != '\0')
+				i++;
+		}
 		if (length == -1)
 			length = l;
-		else
-		{
-			if (l != length)
-				return (-1);
-		}
+		else if (l != length)
+			return (-1);
 		i++;
 	}
 	return (length);
-}*/
+}
 
 static int	ft_start_error(char *buf)
 {
-	int 	i;
+	int		i;
 
 	i = 0;
 	while (buf[i] != '\0')
@@ -69,12 +68,15 @@ static int	ft_invalid(char *buf)
 	{
 		if (buf[i] == '-' && (buf[i + 1] < '0' || buf[i + 1] > '9'))
 		{
-			ft_putstr_fd("error: negative symbol '-' must be followed only by a digit\n", 2);
+			ft_putstr_fd(
+					"error: '-' must be followed only by a digit\n", 2);
 			return (-1);
 		}
-		if (buf[i] != '-' && buf[i] != ' ' && buf[i] != '\n' && !(buf[i] >= '0' && buf[i] <= '9'))
+		if (buf[i] != '-' && buf[i] != ' ' && buf[i] != '\n'\
+			&& !(buf[i] >= '0' && buf[i] <= '9'))
 		{
-			ft_putstr_fd("error: the file must only contain numbers and spaces", 2);
+			ft_putstr_fd(
+					"error: the file must only contain numbers and spaces", 2);
 			return (-1);
 		}
 		i++;
@@ -82,7 +84,7 @@ static int	ft_invalid(char *buf)
 	return (1);
 }
 
-char		*ft_endbuf(char *buf)
+char		*ft_endbuf(char *buf, int *length)
 {
 	int		i;
 
@@ -97,7 +99,10 @@ char		*ft_endbuf(char *buf)
 	buf[i - 1] = '\0';
 	if (ft_start_error(buf) == -1 || ft_invalid(buf) == -1)
 		return (NULL);
-	//ft_putstr_fd("error: lines of the file are not the same length\n", 2);
-	//return (NULL);
+	if ((*length = ft_length_error(buf)) == -1)
+	{
+		ft_putstr_fd("error: lines of the file are not the same length\n", 2);
+		return (NULL);
+	}
 	return (buf);
 }

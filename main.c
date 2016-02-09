@@ -6,7 +6,7 @@
 /*   By: fsidler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/03 23:17:40 by fsidler           #+#    #+#             */
-/*   Updated: 2016/02/09 15:09:40 by fsidler          ###   ########.fr       */
+/*   Updated: 2016/02/09 17:29:17 by fsidler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int			main(int argc, char **argv)
 		free(buf);
 		return (0);
 	}
-	if (ft_endbuf(buf) != NULL)
+	if (ft_endbuf(buf, &nb) != NULL)
 		printf("%s\n", buf);//retirer
 	if (close(fd) == -1)
 		ft_indicate_error(argv[1]);

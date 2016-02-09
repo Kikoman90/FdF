@@ -6,7 +6,7 @@
 /*   By: fsidler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 13:44:57 by fsidler           #+#    #+#             */
-/*   Updated: 2016/02/09 15:10:53 by fsidler          ###   ########.fr       */
+/*   Updated: 2016/02/09 17:29:30 by fsidler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 # include "libft/libft.h"
 
-char	*ft_endbuf(char *buf);
+char	*ft_endbuf(char *buf, int *length);
 
 #endif
