@@ -6,7 +6,7 @@
 /*   By: fsidler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/03 23:17:40 by fsidler           #+#    #+#             */
-/*   Updated: 2016/02/09 17:29:17 by fsidler          ###   ########.fr       */
+/*   Updated: 2016/02/09 17:50:13 by fsidler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static void	ft_indicate_error(char *file)
 	message = ft_strjoin(message, "\n");
 	ft_putstr_fd(message, 2);
 }
-
 
 void		ft_window(void)
 {
