@@ -6,7 +6,7 @@
 /*   By: fsidler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 13:44:57 by fsidler           #+#    #+#             */
-/*   Updated: 2016/02/09 13:56:40 by fsidler          ###   ########.fr       */
+/*   Updated: 2016/02/09 15:10:53 by fsidler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,7 @@
 # define FDF_H
 
 # include "libft/libft.h"
+
+char	*ft_endbuf(char *buf);
 
 #endif

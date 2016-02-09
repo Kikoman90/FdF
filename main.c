@@ -6,7 +6,7 @@
 /*   By: fsidler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/03 23:17:40 by fsidler           #+#    #+#             */
-/*   Updated: 2016/02/09 13:56:17 by fsidler          ###   ########.fr       */
+/*   Updated: 2016/02/09 15:09:40 by fsidler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <stdio.h>//retirer
 #include <mlx.h>
 
-void	ft_indicate_error(char *file)
+static void	ft_indicate_error(char *file)
 {
 	char	*message;
 
@@ -30,7 +30,7 @@ void	ft_indicate_error(char *file)
 }
 
 
-void	ft_window(void)
+void		ft_window(void)
 {
 	void	*mlx;
 	void	*win;
@@ -40,46 +40,38 @@ void	ft_window(void)
 	mlx_loop(mlx);
 }
 
-char	*ft_error(char *buf)
+static int	ft_start(char *argv, int argc, int *fd)
 {
-	int		i;
-
-	i = 0;
-	if (buf[0] == '\0')
-	{
-		ft_putstr_fd("error: file is empty\n", 2);
-		return (NULL);
-	}
-	while (buf[i] != '\0')
-		i++;
-	buf[i - 1] = '\0';
-	//appel des fonctions pour longueur des lignes, digit, empty lines (meme fonction que digit)
-	return (buf);
-}
-
-int		main(int argc, char **argv)
-{
-	int		fd;
-	char	*line;
-	char	*buf;
-	
-	buf = ft_strnew(1);
 	if (argc != 2)
 	{
-		write(2, "usage: ./FdF input_file\n", 24);
-		return (0);
+		ft_putstr_fd("usage: ./FdF input_file\n", 2);
+		return (-1);
 	}
 	if (BUFF_SIZE < 1)
 	{
-		write(2, "error: BUFF_SIZE must be greater than 0\n", 40);
-		return (0);
+		ft_putstr_fd("error: BUFF_SIZE must be greater than 0\n", 2);
+		return (-1);
 	}
-	if ((fd = open(argv[1], O_RDONLY)) == -1)
+	if ((*fd = open(argv, O_RDONLY)) == -1)
 	{
-		ft_indicate_error(argv[1]);
-		return (0);
+		ft_indicate_error(argv);
+		return (-1);
 	}
-	while (get_next_line(fd, &line) > 0)
+	return (1);
+}
+
+int			main(int argc, char **argv)
+{
+	int		nb;
+	int		fd;
+	char	*line;
+	char	*buf;
+
+	nb = 0;
+	buf = ft_strnew(1);
+	if (ft_start(argv[1], argc, &fd) == -1)
+		return (0);
+	while (get_next_line(fd, &line) > 0 && nb++ > -1)
 		buf = ft_strjoin(ft_strjoin(buf, line), "\n");
 	if (get_next_line(fd, &line) != 0)
 	{
@@ -87,12 +79,9 @@ int		main(int argc, char **argv)
 		free(buf);
 		return (0);
 	}
-	if (ft_error(buf) != NULL)
-	{
+	if (ft_endbuf(buf) != NULL)
 		printf("%s\n", buf);//retirer
-		//appel des fonctions (atoi, char* to int**)
-	}
 	if (close(fd) == -1)
 		ft_indicate_error(argv[1]);
-	return (fd);
+	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: fsidler <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/09 13:47:47 by fsidler           #+#    #+#              #
-#    Updated: 2016/02/09 13:55:04 by fsidler          ###   ########.fr        #
+#    Updated: 2016/02/09 14:19:14 by fsidler          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,9 @@ LIB_NAME = ft
 LIBDIR = libft
 FLAGS = -Wall -Wextra -Werror
 
-SOURCES = main.c
+SOURCES = main.c \
+		  error.c
+
 OBJECTS = $(SOURCES:.c=.o)
 
 
