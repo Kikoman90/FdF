@@ -6,29 +6,27 @@
 /*   By: fsidler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/02 14:35:20 by fsidler           #+#    #+#             */
-/*   Updated: 2015/12/03 16:30:04 by fsidler          ###   ########.fr       */
+/*   Updated: 2016/02/10 17:16:45 by fsidler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_atoi(char *str)
+int		ft_atoi(char *str, int *k)
 {
-	int		i;
 	int		s;
 	int		r;
 
 	r = 0;
-	i = 0;
 	s = 1;
-	while (str[i] >= 0 && str[i] <= 32)
-		i++;
-	if (str[i] == '-')
+	while (str[*k] >= 0 && str[*k] <= 32)
+		(*k)++;
+	if (str[*k] == '-')
 		s = -1;
-	if (str[i] == '+' || str[i] == '-')
-		i++;
-	while (str[i] && str[i] >= '0' && str[i] <= '9')
+	if (str[*k] == '+' || str[*k] == '-')
+		(*k)++;
+	while (str[*k] && str[*k] >= '0' && str[*k] <= '9')
 	{
-		r = r * 10 + str[i] - '0';
-		i++;
+		r = r * 10 + str[*k] - '0';
+		(*k)++;
 	}
 	return (s * r);
 }

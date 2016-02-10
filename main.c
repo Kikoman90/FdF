@@ -6,7 +6,7 @@
 /*   By: fsidler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/03 23:17:40 by fsidler           #+#    #+#             */
-/*   Updated: 2016/02/09 18:15:52 by fsidler          ###   ########.fr       */
+/*   Updated: 2016/02/10 17:29:39 by fsidler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,42 @@
 #include <errno.h>
 #include <stdio.h>//retirer
 #include <mlx.h>
+
+int			**ft_newtab(char *buf, int nbl, int nbi)
+{
+	int		i;
+	int		j;
+	int		k;
+	int		**tab;
+
+	j = 0;
+	k = 0;
+	if (!(tab = (int **)malloc(sizeof(int *) * nbl)))
+		return (NULL);
+	while (buf[k] != '\0' && j < nbl)
+	{
+		i = 0;
+		if (!(tab[j] = (int *)malloc(sizeof(int) * nbi)))
+		{
+			while (j-- >= 0)
+				free(tab[j]);
+			return (NULL);
+		}
+		while (buf[k] != '\n' && buf[k] != '\0' && j < nbl)
+		{
+			tab[j][i] = ft_atoi(buf, &k);
+			i++;
+			if (buf[k] != '\n' && buf[k] != '\0')
+			{
+				while (buf[k] == ' ')
+					k++;
+			}
+		}
+		k++;
+		j++;
+	}
+	return (tab);
+}
 
 static void	ft_indicate_error(char *file)
 {
@@ -61,16 +97,17 @@ static int	ft_start(char *argv, int argc, int *fd)
 
 int			main(int argc, char **argv)
 {
-	int		nb;
+	int		nbl;
+	int		nbi;
 	int		fd;
 	char	*line;
 	char	*buf;
 
-	nb = 0;
+	nbl = 0;
 	buf = ft_strnew(1);
 	if (ft_start(argv[1], argc, &fd) == -1)
 		return (0);
-	while (get_next_line(fd, &line) > 0 && nb++ > -1)
+	while (get_next_line(fd, &line) > 0 && nbl++ > -1)
 		buf = ft_strjoin(ft_strjoin(buf, line), "\n");
 	if (get_next_line(fd, &line) != 0)
 	{
@@ -78,8 +115,12 @@ int			main(int argc, char **argv)
 		free(buf);
 		return (0);
 	}
-	if (ft_endbuf(buf, &nb) != NULL)
+	if (ft_endbuf(buf, &nbi) != NULL)
+	{
 		printf("%s\n", buf);//retirer
+		printf("nbl: %d nbi: %d\n", nbl, nbi);//retirer
+		ft_newtab(buf, nbl, nbi);
+	}
 	if (close(fd) == -1)
 		ft_indicate_error(argv[1]);
 	return (0);

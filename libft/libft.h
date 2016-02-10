@@ -6,7 +6,7 @@
 /*   By: fsidler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/01 13:21:24 by fsidler           #+#    #+#             */
-/*   Updated: 2016/02/09 18:19:14 by fsidler          ###   ########.fr       */
+/*   Updated: 2016/02/10 17:04:13 by fsidler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int					ft_isspace(int c);
 int					ft_tolower(int c);
 int					ft_toupper(int c);
 
-int					ft_atoi(char *str);
+int					ft_atoi(char *str, int *k);
 
 void				ft_bzero(void *s, size_t n);
 
