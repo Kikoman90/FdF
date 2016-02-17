@@ -6,7 +6,7 @@
 /*   By: fsidler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/17 12:13:58 by fsidler           #+#    #+#             */
-/*   Updated: 2016/02/17 18:18:23 by fsidler          ###   ########.fr       */
+/*   Updated: 2016/02/17 19:04:26 by fsidler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int			ft_init_struct(char *buf, int nbl, int nbi)
 	f.xmove = 0;
 	f.ymove = 0;
 	f.zoom = 0;
-	f.tab = ft_newtab(buf, nbl, nbi);
+	f.tab = ft_newtab(buf, nbl, nbi, 0);
 	f.l = nbl;
 	f.i = nbi;
 	f.mlx = mlx_init();
