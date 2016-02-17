@@ -6,7 +6,7 @@
 /*   By: fsidler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/01 13:21:24 by fsidler           #+#    #+#             */
-/*   Updated: 2016/02/10 17:04:13 by fsidler          ###   ########.fr       */
+/*   Updated: 2016/02/17 18:10:48 by fsidler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ typedef struct		s_list
 	size_t			content_size;
 	struct s_list	*next;
 }					t_list;
+
+float				ft_sqrt(float nb);
 
 int					get_next_line(int const fd, char **line);
 

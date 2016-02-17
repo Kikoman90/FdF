@@ -6,23 +6,13 @@
 /*   By: fsidler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/17 12:13:58 by fsidler           #+#    #+#             */
-/*   Updated: 2016/02/17 17:41:22 by fsidler          ###   ########.fr       */
+/*   Updated: 2016/02/17 18:13:24 by fsidler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-float		ft_sqrt(float nb)
-{
-	float	x;
-
-	x = 0;
-	while (x * x < nb)
-		x++;
-	return (x);
-}
-
-void		ft_draw_line(t_var f)
+static void	ft_draw_line(t_var f)
 {
 	double	tx;
 	float	dx;
@@ -40,42 +30,47 @@ void		ft_draw_line(t_var f)
 	}
 }
 
-void		ft_vertical(t_var f, int j, int i)
+static void	ft_vertical(t_var f, int j, int i)
 {
- 	f.x0 = 50 + (i * 25) + (j * 25);
+	f.x0 = 50 + (i * 25) + (j * 25);
 	f.x1 = 50 + (i * 25) + ((j + 1) * 25);
-	f.y0 = ((600 + (j * 25)) * 1. / 2.) - (((i * 25) + (4 * f.tab[j][i])) * 1. / 2.);
-	f.y1 = ((600 + ((j + 1) * 25)) * 1. / 2.) - (((i * 25) + (4 * f.tab[j + 1][i])) * 1. / 2.);
+	f.y0 = ((600 + (j * 25)) * 1. / 2.) - (((i * 25)
+				+ (4 * f.tab[j][i])) * 1. / 2.);
+	f.y1 = ((600 + ((j + 1) * 25)) * 1. / 2.) - (((i * 25)
+				+ (4 * f.tab[j + 1][i])) * 1. / 2.);
 	ft_draw_line(f);
 }
 
-void		ft_horizontal(t_var f, int j, int i)
+static void	ft_horizontal(t_var f, int j, int i)
 {
 	f.x0 = 50 + (i * 25) + (j * 25);
 	f.x1 = 50 + ((i + 1) * 25) + (j * 25);
-	f.y0 = ((600 + (j * 25)) * 1. / 2.) - (((i * 25) + (4 * f.tab[j][i])) * 1. / 2.);
-	f.y1 = ((600 + (j * 25)) * 1. / 2.) - ((((i + 1) * 25) + (4 * f.tab[j][i + 1])) * 1. / 2.);
+	f.y0 = ((600 + (j * 25)) * 1. / 2.) - (((i * 25)
+				+ (4 * f.tab[j][i])) * 1. / 2.);
+	f.y1 = ((600 + (j * 25)) * 1. / 2.) - ((((i + 1) * 25)
+				+ (4 * f.tab[j][i + 1])) * 1. / 2.);
 	ft_draw_line(f);
 }
 
-int			ft_call(t_var f)
+static int	ft_call(t_var f)
 {
 	int	i;
 	int	j;
 
-	i = 0;
+	j = 0;
+	while (j < f.l)
+	{
+		i = 0;
+		while (i < f.i - 1)
+			ft_horizontal(f, j, i++);
+		j++;
+	}
 	j = 0;
 	while (j < f.l - 1)
 	{
 		i = 0;
-		while (i < f.i - 1)
-		{
-			if (i < f.i - 1)
-				ft_vertical(f, j, i);
-			if (j < f.l - 1)
-				ft_horizontal(f, j, i);
-			i++;
-		}
+		while (i < f.i)
+			ft_vertical(f, j, i++);
 		j++;
 	}
 	return (0);
@@ -93,7 +88,7 @@ int			ft_init_struct(char *buf, int nbl, int nbi)
 	f.i = nbi;
 	f.mlx = mlx_init();
 	f.win = mlx_new_window(f.mlx, 800, 800, "fdf");
-	ft_call(f);	
+	ft_call(f);
 	mlx_loop(f.mlx);
 	return (0);
 }

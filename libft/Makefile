@@ -6,7 +6,7 @@
 #    By: fsidler <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/02 11:09:55 by fsidler           #+#    #+#              #
-#    Updated: 2016/02/09 13:55:56 by fsidler          ###   ########.fr        #
+#    Updated: 2016/02/17 18:08:44 by fsidler          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,6 +79,7 @@ SRC = ft_isascii.c \
 	  ft_copysign.c \
 	  ft_signbit.c \
 	  get_next_line.c \
+	  ft_sqrt.c \
 
 OBJ = $(SRC:.c=.o)
 
