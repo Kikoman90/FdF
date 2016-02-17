@@ -6,7 +6,7 @@
 /*   By: fsidler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/17 12:13:58 by fsidler           #+#    #+#             */
-/*   Updated: 2016/02/17 18:13:24 by fsidler          ###   ########.fr       */
+/*   Updated: 2016/02/17 18:18:23 by fsidler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	ft_draw_line(t_var f)
 	{
 		f.x = f.x0 + (dx * tx);
 		f.y = f.y0 + (dy * tx);
-		mlx_pixel_put(f.mlx, f.win, f.x, f.y, 0x00F0F0F0);
+		mlx_pixel_put(f.mlx, f.win, f.x + f.xmove, f.y + f.ymove, 0x00F0F0F0);
 		tx += 1. / ft_sqrt((dx * dx) + (dy * dy));
 	}
 }
