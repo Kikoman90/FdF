@@ -6,7 +6,7 @@
 #    By: fsidler <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/09 13:47:47 by fsidler           #+#    #+#              #
-#    Updated: 2016/02/17 17:15:53 by fsidler          ###   ########.fr        #
+#    Updated: 2016/02/17 17:44:09 by fsidler          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,16 +23,16 @@ SOURCES = main.c \
 OBJECTS = $(SOURCES:.c=.o)
 
 $(NAME): $(LIBDIR)/lib$(LIB_NAME).a $(OBJECTS)
-	$(CC) -L $(LIBDIR) -l $(LIB_NAME) -o $@ $^ -lmlx -framework OpenGL -framework AppKit
+	@$(CC) -L $(LIBDIR) -l $(LIB_NAME) -o $@ $^ -lmlx -framework OpenGL -framework AppKit
 	@echo "compiling [ $(NAME) ] SUCCESS"
 
 $(LIBDIR)/lib$(LIB_NAME).a : 
-	$(MAKE) -C $(LIBDIR)
+	@$(MAKE) -C $(LIBDIR)
 
 all: $(NAME)
 
 %.o: %.c
-	$(CC) -c $< -o $@ $(FLAGS)
+	@$(CC) -c $< -o $@ $(FLAGS)
 
 clean:
 	@rm -f $(OBJECTS)
