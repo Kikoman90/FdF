@@ -6,7 +6,7 @@
 /*   By: fsidler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 14:04:49 by fsidler           #+#    #+#             */
-/*   Updated: 2016/02/10 16:26:45 by fsidler          ###   ########.fr       */
+/*   Updated: 2016/02/17 13:56:37 by fsidler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ static int	ft_length_error(char *buf)
 		{
 			while (buf[i] == ' ' && buf[i] != '\n' && buf[i] != '\0')
 				i++;
-			l++;
+			if (buf[i] != '\n' && buf[i] != '\0')
+				l++;
 			while (buf[i] != ' ' && buf[i] != '\n' && buf[i] != '\0')
 				i++;
 		}

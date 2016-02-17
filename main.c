@@ -6,47 +6,11 @@
 /*   By: fsidler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/03 23:17:40 by fsidler           #+#    #+#             */
-/*   Updated: 2016/02/15 17:31:28 by fsidler          ###   ########.fr       */
+/*   Updated: 2016/02/17 14:14:56 by fsidler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
 #include "fdf.h"
-#include <errno.h>
-#include <stdio.h>//retirer
-#include <mlx.h>
-
-int			ft_call(int **tab, void *win, void *mlx, int nbl, int nbi)
-{
-	int	x;
-	int	y;
-	int	j;
-	int	i;
-
-	i = 0;
-	j = 0;
-	if (!tab)
-		return (0);
-	while (j < nbl)
-	{
-		i = 0;
-		while (i < nbi - 1)
-		{
-			y = 50 + (j * 50) - tab[j][i];
-			x = 20 + (i * 20);
-			while (x <= 20 + ((i + 1) * 20) - tab[j][i])
-			{
-				if (tab[j][i] == 0)
-					mlx_pixel_put(mlx, win, x++, y--, 0xFFFFFF);
-				else
-					mlx_pixel_put(mlx, win, x++, y--, 0x00FF00);
-			}
-			i++;
-		}
-		j++;
-	}
-	return (0);
-}
 
 int			**ft_newtab(char *buf, int nbl, int nbi)
 {
@@ -97,17 +61,6 @@ static void	ft_indicate_error(char *file)
 	ft_putstr_fd(message, 2);
 }
 
-void		ft_window(int **tab, int nbl, int nbi)
-{
-	void	*mlx;
-	void	*win;
-
-	mlx = mlx_init();
-	win = mlx_new_window(mlx, 800, 800, "FdF");
-	ft_call(tab, win, mlx, nbl, nbi);
-	mlx_loop(mlx);
-}
-
 static int	ft_start(char *argv, int argc, int *fd)
 {
 	if (argc != 2)
@@ -152,7 +105,7 @@ int			main(int argc, char **argv)
 	{
 		printf("%s\n", buf);//retirer
 		printf("nbl: %d nbi: %d\n", nbl, nbi);//retirer
-		ft_window(ft_newtab(buf, nbl, nbi), nbl, nbi);
+		ft_init_struct(buf, nbl, nbi);
 	}
 	if (close(fd) == -1)
 		ft_indicate_error(argv[1]);

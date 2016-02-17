@@ -6,7 +6,7 @@
 #    By: fsidler <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/09 13:47:47 by fsidler           #+#    #+#              #
-#    Updated: 2016/02/09 14:19:14 by fsidler          ###   ########.fr        #
+#    Updated: 2016/02/17 14:13:38 by fsidler          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,12 +17,10 @@ LIBDIR = libft
 FLAGS = -Wall -Wextra -Werror
 
 SOURCES = main.c \
-		  error.c
+		  error.c \
+		  draw.c \
 
 OBJECTS = $(SOURCES:.c=.o)
-
-
-.PHONY: all clean fclean re
 
 $(NAME): $(LIBDIR)/lib$(LIB_NAME).a $(OBJECTS)
 	$(CC) -L $(LIBDIR) -l $(LIB_NAME) -o $@ $^ -lmlx -framework OpenGL -framework AppKit
@@ -42,3 +40,5 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean $(NAME)
+
+.PHONY: all, clean, fclean, re
