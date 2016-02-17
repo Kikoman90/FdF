@@ -6,7 +6,7 @@
 /*   By: fsidler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 14:04:49 by fsidler           #+#    #+#             */
-/*   Updated: 2016/02/17 13:56:37 by fsidler          ###   ########.fr       */
+/*   Updated: 2016/02/17 18:46:34 by fsidler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,31 @@
 
 static int	ft_length_error(char *buf)
 {
-	int	i;
-	int	l;
-	int	length;
+	t_var v;
 
-	i = 0;
-	length = -1;
-	while (buf[i] != '\0')
+	v.i = 0;
+	v.length = -1;
+	while (buf[v.i] != '\0')
 	{
-		l = 0;
-		while (buf[i] != '\n' && buf[i] != '\0')
+		v.l = 0;
+		while (buf[v.i] == ' ')
+			v.i++;
+		while (buf[v.i] != '\n' && buf[v.i] != '\0')
 		{
-			while (buf[i] == ' ' && buf[i] != '\n' && buf[i] != '\0')
-				i++;
-			if (buf[i] != '\n' && buf[i] != '\0')
-				l++;
-			while (buf[i] != ' ' && buf[i] != '\n' && buf[i] != '\0')
-				i++;
+			while (buf[v.i] == ' ' && buf[v.i] != '\n' && buf[v.i] != '\0')
+				v.i++;
+			if (buf[v.i] != '\n' && buf[v.i] != '\0')
+				v.l++;
+			while (buf[v.i] != ' ' && buf[v.i] != '\n' && buf[v.i] != '\0')
+				v.i++;
 		}
-		if (length == -1)
-			length = l;
-		else if (l != length)
+		if (v.length == -1)
+			v.length = v.l;
+		else if (v.l != v.length)
 			return (-1);
-		i++;
+		v.i++;
 	}
-	return (length);
+	return (v.length);
 }
 
 static int	ft_start_error(char *buf)
@@ -48,7 +48,7 @@ static int	ft_start_error(char *buf)
 	i = 0;
 	while (buf[i] != '\0')
 	{
-		if ((buf[i] < '0' || buf[i] > '9') && buf[i] != '-')
+		if ((buf[i] < '0' || buf[i] > '9') && buf[i] != '-' && buf[i] != ' ')
 		{
 			ft_putstr_fd("error: lines must only start by a digit or '-'\n", 2);
 			return (-1);
