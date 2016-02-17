@@ -6,7 +6,7 @@
 /*   By: fsidler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 13:44:57 by fsidler           #+#    #+#             */
-/*   Updated: 2016/02/17 14:14:43 by fsidler          ###   ########.fr       */
+/*   Updated: 2016/02/17 17:41:12 by fsidler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "libft/libft.h"
 # include <errno.h>
-# include <stdio.h>//retirer
 # include <mlx.h>
 
 typedef struct	s_var
@@ -26,6 +25,12 @@ typedef struct	s_var
 	int			xmove;
 	int			ymove;
 	int			**tab;
+	double		x;
+	double		y;
+	double		x0;
+	double		x1;
+	double		y0;
+	double		y1;
 	void		*mlx;
 	void		*win;
 }				t_var;

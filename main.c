@@ -6,7 +6,7 @@
 /*   By: fsidler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/03 23:17:40 by fsidler           #+#    #+#             */
-/*   Updated: 2016/02/17 14:14:56 by fsidler          ###   ########.fr       */
+/*   Updated: 2016/02/17 17:41:05 by fsidler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,11 +102,7 @@ int			main(int argc, char **argv)
 		return (0);
 	}
 	if (ft_endbuf(buf, &nbi) != NULL)
-	{
-		printf("%s\n", buf);//retirer
-		printf("nbl: %d nbi: %d\n", nbl, nbi);//retirer
 		ft_init_struct(buf, nbl, nbi);
-	}
 	if (close(fd) == -1)
 		ft_indicate_error(argv[1]);
 	return (0);

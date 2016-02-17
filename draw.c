@@ -6,21 +6,56 @@
 /*   By: fsidler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/17 12:13:58 by fsidler           #+#    #+#             */
-/*   Updated: 2016/02/17 14:36:37 by fsidler          ###   ########.fr       */
+/*   Updated: 2016/02/17 17:41:22 by fsidler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+float		ft_sqrt(float nb)
+{
+	float	x;
+
+	x = 0;
+	while (x * x < nb)
+		x++;
+	return (x);
+}
+
+void		ft_draw_line(t_var f)
+{
+	double	tx;
+	float	dx;
+	float	dy;
+
+	tx = 0.0;
+	dx = f.x1 - f.x0;
+	dy = f.y1 - f.y0;
+	while (tx <= 1)
+	{
+		f.x = f.x0 + (dx * tx);
+		f.y = f.y0 + (dy * tx);
+		mlx_pixel_put(f.mlx, f.win, f.x, f.y, 0x00F0F0F0);
+		tx += 1. / ft_sqrt((dx * dx) + (dy * dy));
+	}
+}
+
+void		ft_vertical(t_var f, int j, int i)
+{
+ 	f.x0 = 50 + (i * 25) + (j * 25);
+	f.x1 = 50 + (i * 25) + ((j + 1) * 25);
+	f.y0 = ((600 + (j * 25)) * 1. / 2.) - (((i * 25) + (4 * f.tab[j][i])) * 1. / 2.);
+	f.y1 = ((600 + ((j + 1) * 25)) * 1. / 2.) - (((i * 25) + (4 * f.tab[j + 1][i])) * 1. / 2.);
+	ft_draw_line(f);
+}
+
 void		ft_horizontal(t_var f, int j, int i)
 {
-	double x0;
-	double x1;
-	double y0;
-	double y1;
-
-	x0 = 400 + (i * 25);
-	x1 = 400 + ((i + 1) * 25) + (j * 25);
+	f.x0 = 50 + (i * 25) + (j * 25);
+	f.x1 = 50 + ((i + 1) * 25) + (j * 25);
+	f.y0 = ((600 + (j * 25)) * 1. / 2.) - (((i * 25) + (4 * f.tab[j][i])) * 1. / 2.);
+	f.y1 = ((600 + (j * 25)) * 1. / 2.) - ((((i + 1) * 25) + (4 * f.tab[j][i + 1])) * 1. / 2.);
+	ft_draw_line(f);
 }
 
 int			ft_call(t_var f)
@@ -30,23 +65,14 @@ int			ft_call(t_var f)
 
 	i = 0;
 	j = 0;
-	while (j < f.l)
+	while (j < f.l - 1)
 	{
 		i = 0;
-		while (i < f.i)
+		while (i < f.i - 1)
 		{
-			/*y = 50 + (j * 50) - f.tab[j][i];
-			x = 20 + (i * 20);
-			while (x <= 20 + ((i + 1) * 20) - f.tab[j][i])
-			{
-				if (f.tab[j][i] == 0)
-					mlx_pixel_put(f.mlx, f.win, x++, y--, 0xFFFFFF);
-				else
-					mlx_pixel_put(f.mlx, f.win, x++, y--, 0x00FF00);
-			}*/
 			if (i < f.i - 1)
 				ft_vertical(f, j, i);
-			if (j < f->l - 1)
+			if (j < f.l - 1)
 				ft_horizontal(f, j, i);
 			i++;
 		}
