@@ -6,7 +6,7 @@
 #    By: fsidler <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/09 13:47:47 by fsidler           #+#    #+#              #
-#    Updated: 2016/02/17 17:44:09 by fsidler          ###   ########.fr        #
+#    Updated: 2016/02/18 15:34:21 by fsidler          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ FLAGS = -Wall -Wextra -Werror -O3
 SOURCES = main.c \
 		  error.c \
 		  draw.c \
+		  key.c \
 
 OBJECTS = $(SOURCES:.c=.o)
 

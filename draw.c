@@ -6,7 +6,7 @@
 /*   By: fsidler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/17 12:13:58 by fsidler           #+#    #+#             */
-/*   Updated: 2016/02/17 19:04:26 by fsidler          ###   ########.fr       */
+/*   Updated: 2016/02/18 16:01:55 by fsidler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,27 +32,27 @@ static void	ft_draw_line(t_var f)
 
 static void	ft_vertical(t_var f, int j, int i)
 {
-	f.x0 = 50 + (i * 25) + (j * 25);
-	f.x1 = 50 + (i * 25) + ((j + 1) * 25);
-	f.y0 = ((600 + (j * 25)) * 1. / 2.) - (((i * 25)
+	f.x0 = 50 + (i * f.zoom) + (j * f.zoom);
+	f.x1 = 50 + (i * f.zoom) + ((j + 1) * f.zoom);
+	f.y0 = ((700 + (j * f.zoom)) * 1. / 2.) - (((i * f.zoom)
 				+ (4 * f.tab[j][i])) * 1. / 2.);
-	f.y1 = ((600 + ((j + 1) * 25)) * 1. / 2.) - (((i * 25)
+	f.y1 = ((700 + ((j + 1) * f.zoom)) * 1. / 2.) - (((i * f.zoom)
 				+ (4 * f.tab[j + 1][i])) * 1. / 2.);
 	ft_draw_line(f);
 }
 
 static void	ft_horizontal(t_var f, int j, int i)
 {
-	f.x0 = 50 + (i * 25) + (j * 25);
-	f.x1 = 50 + ((i + 1) * 25) + (j * 25);
-	f.y0 = ((600 + (j * 25)) * 1. / 2.) - (((i * 25)
+	f.x0 = 50 + (i * f.zoom) + (j * f.zoom);
+	f.x1 = 50 + ((i + 1) * f.zoom) + (j * f.zoom);
+	f.y0 = ((700 + (j * f.zoom)) * 1. / 2.) - (((i * f.zoom)
 				+ (4 * f.tab[j][i])) * 1. / 2.);
-	f.y1 = ((600 + (j * 25)) * 1. / 2.) - ((((i + 1) * 25)
+	f.y1 = ((700 + (j * f.zoom)) * 1. / 2.) - ((((i + 1) * f.zoom)
 				+ (4 * f.tab[j][i + 1])) * 1. / 2.);
 	ft_draw_line(f);
 }
 
-static int	ft_call(t_var f)
+static int		ft_call(t_var f)
 {
 	int	i;
 	int	j;
@@ -82,13 +82,18 @@ int			ft_init_struct(char *buf, int nbl, int nbi)
 
 	f.xmove = 0;
 	f.ymove = 0;
-	f.zoom = 0;
 	f.tab = ft_newtab(buf, nbl, nbi, 0);
 	f.l = nbl;
 	f.i = nbi;
+	if (f.l >= f.i)
+		f.zoom = 400 / f.l;
+	else
+		f.zoom = 400 / f.i;
 	f.mlx = mlx_init();
 	f.win = mlx_new_window(f.mlx, 800, 800, "fdf");
 	ft_call(f);
+	ft_options(f);
+	mlx_key_hook(f.win, ft_escape, 0);
 	mlx_loop(f.mlx);
 	return (0);
 }
