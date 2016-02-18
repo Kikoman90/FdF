@@ -6,7 +6,7 @@
 /*   By: fsidler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 14:04:49 by fsidler           #+#    #+#             */
-/*   Updated: 2016/02/17 18:46:34 by fsidler          ###   ########.fr       */
+/*   Updated: 2016/02/18 18:09:39 by fsidler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	ft_start_error(char *buf)
 	{
 		if ((buf[i] < '0' || buf[i] > '9') && buf[i] != '-' && buf[i] != ' ')
 		{
-			ft_putstr_fd("error: lines must only start by a digit or '-'\n", 2);
+			ft_putstr_fd("error: lines must start by a digit or space\n", 2);
 			return (-1);
 		}
 		while (buf[i] != '\n' && buf[i] != '\0')

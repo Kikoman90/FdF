@@ -6,30 +6,81 @@
 /*   By: fsidler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/18 15:05:30 by fsidler           #+#    #+#             */
-/*   Updated: 2016/02/18 16:01:40 by fsidler          ###   ########.fr       */
+/*   Updated: 2016/02/18 18:32:43 by fsidler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include <stdio.h>//retirer
 
-void	ft_options(t_var f)
+int			ft_expose_hook(t_var *f)
 {
-	mlx_string_put(f.mlx, f.win, 35, 35, OP_COLOR, "Quit = ESC");
-	mlx_string_put(f.mlx, f.win, 35, 55, OP_COLOR, "Move = ^ v < >");
-	mlx_string_put(f.mlx, f.win, 35, 75, OP_COLOR, "Zoom = + -");
-}
+	int	x;
+	int	y;
 
-/*int			ft_expose(t_var f)
-{
-	ft_options(f);
+	x = 27;
+	y = 34;
+	while (x <= 180)
+		mlx_pixel_put(f->mlx, f->win, x++, y, OP_COLOR);
+	while (y <= 97)
+		mlx_pixel_put(f->mlx, f->win, x, y++, OP_COLOR);
+	while (x >= 27)
+		mlx_pixel_put(f->mlx, f->win, x--, y, OP_COLOR);
+	while (y >= 34)
+		mlx_pixel_put(f->mlx, f->win, x, y--, OP_COLOR);
+	mlx_string_put(f->mlx, f->win, 35, 35, OP_COLOR, "Quit = ESC");
+	mlx_string_put(f->mlx, f->win, 35, 55, OP_COLOR, "Move = ^ v < >");
+	mlx_string_put(f->mlx, f->win, 35, 75, OP_COLOR, "Zoom = + -");
 	ft_call(f);
 	return (0);
-}*/
+}
 
-int			ft_escape(int keycode)
+static int	ft_key2(int keycode, t_var *f)
+{
+	if (keycode == 126)
+	{
+		f->ymove -= 30;
+		mlx_clear_window(f->mlx, f->win);
+		ft_expose_hook(f);
+	}
+	if (keycode == 69)
+	{
+		if (f->zoom <= 95)
+			f->zoom += 1;
+		mlx_clear_window(f->mlx, f->win);
+		ft_expose_hook(f);
+	}
+	if (keycode == 78)
+	{
+		if (f->zoom >= -35)
+			f->zoom -= 1;
+		mlx_clear_window(f->mlx, f->win);
+		ft_expose_hook(f);
+	}
+	return (0);
+}
+
+int			ft_key_hook(int keycode, t_var *f)
 {
 	if (keycode == 53)
 		exit(0);
+	if (keycode == 123)
+	{
+		f->xmove -= 30;
+		mlx_clear_window(f->mlx, f->win);
+		ft_expose_hook(f);
+	}
+	if (keycode == 124)
+	{
+		f->xmove += 30;
+		mlx_clear_window(f->mlx, f->win);
+		ft_expose_hook(f);
+	}
+	if (keycode == 125)
+	{
+		f->ymove += 30;
+		mlx_clear_window(f->mlx, f->win);
+		ft_expose_hook(f);
+	}
+	ft_key2(keycode, f);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: fsidler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 13:44:57 by fsidler           #+#    #+#             */
-/*   Updated: 2016/02/18 16:04:19 by fsidler          ###   ########.fr       */
+/*   Updated: 2016/02/18 17:37:02 by fsidler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <errno.h>
 # include <mlx.h>
 
-# define OP_COLOR 0x00FFFF
+# define OP_COLOR 0x6CD2A6
 
 typedef struct	s_var
 {
@@ -38,8 +38,9 @@ typedef struct	s_var
 	void		*win;
 }				t_var;
 
-void			ft_options(t_var f);
-int				ft_escape(int keycode);
+int				ft_call(t_var *f);
+int				ft_expose_hook(t_var *f);
+int				ft_key_hook(int keycode, t_var *f);
 int				ft_init_struct(char *buf, int nbl, int nbi);
 int				**ft_newtab(char *buf, int nbl, int nbi, int j);
 char			*ft_endbuf(char *buf, int *length);
