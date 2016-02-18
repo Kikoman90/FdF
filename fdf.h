@@ -6,7 +6,7 @@
 /*   By: fsidler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 13:44:57 by fsidler           #+#    #+#             */
-/*   Updated: 2016/02/18 17:37:02 by fsidler          ###   ########.fr       */
+/*   Updated: 2016/02/18 18:55:35 by fsidler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct	s_var
 	int			zoom;
 	int			xmove;
 	int			ymove;
+	double		z;
 	int			**tab;
 	double		x;
 	double		y;

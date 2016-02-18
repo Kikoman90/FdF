@@ -6,7 +6,7 @@
 /*   By: fsidler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/17 12:13:58 by fsidler           #+#    #+#             */
-/*   Updated: 2016/02/18 18:31:59 by fsidler          ###   ########.fr       */
+/*   Updated: 2016/02/18 19:04:21 by fsidler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ static void	ft_vertical(t_var *f, int j, int i)
 	f->x0 = 50 + (i * f->zoom) + (j * f->zoom);
 	f->x1 = 50 + (i * f->zoom) + ((j + 1) * f->zoom);
 	f->y0 = ((700 + (j * f->zoom)) * 1. / 2.) - (((i * f->zoom)
-				+ (4 * f->tab[j][i])) * 1. / 2.);
+				+ (f->z * f->tab[j][i])) * 1. / 2.);
 	f->y1 = ((700 + ((j + 1) * f->zoom)) * 1. / 2.) - (((i * f->zoom)
-				+ (4 * f->tab[j + 1][i])) * 1. / 2.);
+				+ (f->z * f->tab[j + 1][i])) * 1. / 2.);
 	ft_draw_line(f);
 }
 
@@ -47,9 +47,9 @@ static void	ft_horizontal(t_var *f, int j, int i)
 	f->x0 = 50 + (i * f->zoom) + (j * f->zoom);
 	f->x1 = 50 + ((i + 1) * f->zoom) + (j * f->zoom);
 	f->y0 = ((700 + (j * f->zoom)) * 1. / 2.) - (((i * f->zoom)
-				+ (4 * f->tab[j][i])) * 1. / 2.);
+				+ (f->z * f->tab[j][i])) * 1. / 2.);
 	f->y1 = ((700 + (j * f->zoom)) * 1. / 2.) - ((((i + 1) * f->zoom)
-				+ (4 * f->tab[j][i + 1])) * 1. / 2.);
+				+ (f->z * f->tab[j][i + 1])) * 1. / 2.);
 	ft_draw_line(f);
 }
 
@@ -81,6 +81,7 @@ int			ft_init_struct(char *buf, int nbl, int nbi)
 {
 	t_var	f;
 
+	f.z = 2.0;
 	f.xmove = 0;
 	f.ymove = 0;
 	f.tab = ft_newtab(buf, nbl, nbi, 0);

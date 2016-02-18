@@ -6,7 +6,7 @@
 /*   By: fsidler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/18 15:05:30 by fsidler           #+#    #+#             */
-/*   Updated: 2016/02/18 18:32:43 by fsidler          ###   ########.fr       */
+/*   Updated: 2016/02/18 19:05:44 by fsidler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int			ft_expose_hook(t_var *f)
 	y = 34;
 	while (x <= 180)
 		mlx_pixel_put(f->mlx, f->win, x++, y, OP_COLOR);
-	while (y <= 97)
+	while (y <= 117)
 		mlx_pixel_put(f->mlx, f->win, x, y++, OP_COLOR);
 	while (x >= 27)
 		mlx_pixel_put(f->mlx, f->win, x--, y, OP_COLOR);
@@ -30,7 +30,27 @@ int			ft_expose_hook(t_var *f)
 	mlx_string_put(f->mlx, f->win, 35, 35, OP_COLOR, "Quit = ESC");
 	mlx_string_put(f->mlx, f->win, 35, 55, OP_COLOR, "Move = ^ v < >");
 	mlx_string_put(f->mlx, f->win, 35, 75, OP_COLOR, "Zoom = + -");
+	mlx_string_put(f->mlx, f->win, 35, 95, OP_COLOR, "Relief = w s");
 	ft_call(f);
+	return (0);
+}
+
+static int	ft_key3(int keycode, t_var *f)
+{
+	if (keycode == 13)
+	{
+		if (f->z <= 30.)
+			f->z += 0.1;
+		mlx_clear_window(f->mlx, f->win);
+		ft_expose_hook(f);
+	}
+	if (keycode == 1)
+	{
+		if (f->z >= -30.)
+			f->z -= 0.1;
+		mlx_clear_window(f->mlx, f->win);
+		ft_expose_hook(f);
+	}
 	return (0);
 }
 
@@ -56,6 +76,7 @@ static int	ft_key2(int keycode, t_var *f)
 		mlx_clear_window(f->mlx, f->win);
 		ft_expose_hook(f);
 	}
+	ft_key3(keycode, f);
 	return (0);
 }
 
