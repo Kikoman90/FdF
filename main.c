@@ -6,7 +6,7 @@
 /*   By: fsidler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/03 23:17:40 by fsidler           #+#    #+#             */
-/*   Updated: 2016/02/17 19:04:15 by fsidler          ###   ########.fr       */
+/*   Updated: 2016/03/02 17:10:40 by fsidler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,8 @@ int			**ft_newtab(char *buf, int nbl, int nbi, int j)
 		while (buf[k] != '\n' && buf[k] != '\0' && j < nbl)
 		{
 			tab[j][i++] = ft_atoi(buf, &k);
-			if (buf[k] != '\n' && buf[k] != '\0')
-			{
-				while (buf[k] == ' ')
-					k++;
-			}
+			while (buf[k] == ' ')
+				k++;
 		}
 		k++;
 		j++;

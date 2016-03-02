@@ -6,11 +6,33 @@
 /*   By: fsidler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 14:04:49 by fsidler           #+#    #+#             */
-/*   Updated: 2016/02/18 18:09:39 by fsidler          ###   ########.fr       */
+/*   Updated: 2016/03/02 18:47:26 by fsidler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+static int	ft_hexa(char *buf, int i, int num, int start)
+{
+	if (buf[i - 1] < '0' || buf[i - 1] > '9')
+		return (-1);
+	i++;
+	if (buf[i] != '0' || buf[i + 1] != 'x' || buf[num] != ' ')
+		return (-1);
+	i += 2;
+	while (i < num)
+	{
+		if ((buf[i] < '0' || buf[i] > '9') && (buf[i] < 'A' || buf[i] > 'F'))
+			return (-1);
+		i++;
+	}
+	while (start < num)
+	{
+		buf[start] = ' ';
+		start++;
+	}
+	return (1);
+}
 
 static int	ft_length_error(char *buf)
 {
@@ -60,11 +82,8 @@ static int	ft_start_error(char *buf)
 	return (1);
 }
 
-static int	ft_invalid(char *buf)
+static int	ft_invalid(char *buf, int i)
 {
-	int		i;
-
-	i = 0;
 	while (buf[i] != '\0')
 	{
 		if (buf[i] == '-' && (buf[i + 1] < '0' || buf[i + 1] > '9'))
@@ -76,9 +95,20 @@ static int	ft_invalid(char *buf)
 		if (buf[i] != '-' && buf[i] != ' ' && buf[i] != '\n'\
 			&& !(buf[i] >= '0' && buf[i] <= '9'))
 		{
-			ft_putstr_fd(
-					"error: the file must only contain numbers and spaces", 2);
-			return (-1);
+			if (buf[i] == ',')
+			{
+				if (ft_hexa(buf, i, i + 9, i) == -1)
+				{
+					ft_putstr_fd("error: hexadecimal error\n", 2);
+					return (-1);
+				}
+			}
+			else
+			{
+				ft_putstr_fd(
+					"error: file must only contain numbers and spaces\n", 2);
+				return (-1);
+			}
 		}
 		i++;
 	}
@@ -98,7 +128,7 @@ char		*ft_endbuf(char *buf, int *length)
 	while (buf[i] != '\0')
 		i++;
 	buf[i - 1] = '\0';
-	if (ft_start_error(buf) == -1 || ft_invalid(buf) == -1)
+	if (ft_start_error(buf) == -1 || ft_invalid(buf, 0) == -1)
 		return (NULL);
 	if ((*length = ft_length_error(buf)) == -1)
 	{
