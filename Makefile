@@ -6,7 +6,7 @@
 #    By: fsidler <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/09 13:47:47 by fsidler           #+#    #+#              #
-#    Updated: 2016/02/18 15:34:21 by fsidler          ###   ########.fr        #
+#    Updated: 2016/03/04 13:32:19 by fsidler          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,15 +16,17 @@ LIB_NAME = ft
 LIBDIR = libft
 FLAGS = -Wall -Wextra -Werror -O3
 
-SOURCES = main.c \
-		  error.c \
-		  draw.c \
-		  key.c \
+HEADERS = includes
+
+SOURCES = srcs/draw.c \
+		  srcs/main.c \
+		  srcs/key.c \
+		  srcs/error.c \
 
 OBJECTS = $(SOURCES:.c=.o)
 
 $(NAME): $(LIBDIR)/lib$(LIB_NAME).a $(OBJECTS)
-	@$(CC) -L $(LIBDIR) -l $(LIB_NAME) -o $@ $^ -lmlx -framework OpenGL -framework AppKit
+	@$(CC) $(FLAGS) -L $(LIBDIR) -l $(LIB_NAME) -o $@ $^ -lmlx -framework OpenGL -framework AppKit
 	@echo "compiling [ $(NAME) ] SUCCESS"
 
 $(LIBDIR)/lib$(LIB_NAME).a : 
@@ -32,8 +34,8 @@ $(LIBDIR)/lib$(LIB_NAME).a :
 
 all: $(NAME)
 
-%.o: %.c
-	@$(CC) -c $< -o $@ $(FLAGS)
+%.o: %.c $(HEADERS)/$(NAME).h
+	@$(CC) $(FLAGS) -I $(HEADERS) -c $< -o $@
 
 clean:
 	@rm -f $(OBJECTS)
