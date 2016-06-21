@@ -6,7 +6,7 @@
 /*   By: fsidler <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/18 15:05:30 by fsidler           #+#    #+#             */
-/*   Updated: 2016/02/18 19:05:44 by fsidler          ###   ########.fr       */
+/*   Updated: 2016/06/21 15:14:54 by fsidler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int			ft_expose_hook(t_var *f)
 	mlx_string_put(f->mlx, f->win, 35, 35, OP_COLOR, "Quit = ESC");
 	mlx_string_put(f->mlx, f->win, 35, 55, OP_COLOR, "Move = ^ v < >");
 	mlx_string_put(f->mlx, f->win, 35, 75, OP_COLOR, "Zoom = + -");
-	mlx_string_put(f->mlx, f->win, 35, 95, OP_COLOR, "Relief = w s");
+	mlx_string_put(f->mlx, f->win, 35, 95, OP_COLOR, "Depth = w s");
 	ft_call(f);
 	return (0);
 }
