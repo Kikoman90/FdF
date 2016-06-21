@@ -1,7 +1,7 @@
 # FdF
 
 FdF is a program developped for my learning course at 42 school to view 2D topological maps in a 3D space.
-<img align="center" src="http://image.noelshack.com/fichiers/2016/25/1466514259-screen-shot-2016-06-21-at-3-02-13-pm.png" width="100%" />
+<img align="center" src="http://image.noelshack.com/fichiers/2016/25/1466515296-screen-shot-2016-06-21-at-3-21-25-pm.png" width="100%" />
 Several options are available (see [Shortcuts](https://github.com/Kikoman90/FdF#shortcuts) section for more info)
 * Move the map in the 3D space
 * Zoom and unzoom
@@ -13,7 +13,7 @@ git clone https://github.com/Kikoman90/FdF ~/FdF
 cd ~/FdF && ./fdf
 ```
 You have to launch the program with a parameter. This is the name of the map you would like to open at the execution of the program.<br />
-You have example maps in the *maps* folder. The map must be valid.
+You have example maps in the _maps_ folder. The map must be valid.
 
 Example : ⇣
 ```bash
